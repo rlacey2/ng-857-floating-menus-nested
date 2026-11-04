@@ -86,16 +86,16 @@ export class AppComponent {
     // 2. Switch statement acting as your router
     switch (actionId) {
       case 'CONFIG_ENV':
-        this.loadEnvironmentVariables();
+        this.loadEnvironmentVariables(actionId);
         break;
       case 'PERM_ADMIN':
-        this.configureAdminRoles();
+        this.configureAdminRoles(actionId);
         break;
       case 'PERM_TOKEN':
-        this.generateCollaboratorTokens();
+        this.generateCollaboratorTokens(actionId);
         break;
       case 'SYS_STATUS':
-        this.checkSystemStatus();
+        this.checkSystemStatus(actionId);
         break;
       default:
         console.warn(`No action mapped for ID: ${actionId}`);
@@ -103,8 +103,8 @@ export class AppComponent {
   }
 
   // Action Methods
-  private loadEnvironmentVariables() { /* Logic */ }
-  private configureAdminRoles() { /* Logic */ }
-  private generateCollaboratorTokens() { /* Logic */ }
-  private checkSystemStatus() { /* Logic */ }
+  private loadEnvironmentVariables(actionId:any) { /* Logic */  alert('implement: ' + actionId )}
+  private configureAdminRoles(actionId:any) { /* Logic */  alert('implement: ' + actionId )}
+  private generateCollaboratorTokens(actionId:any) { /* Logic */  alert('implement: ' + actionId )}
+  private checkSystemStatus(actionId:any) { /* Logic */  alert('implement: ' + actionId )}
 }
