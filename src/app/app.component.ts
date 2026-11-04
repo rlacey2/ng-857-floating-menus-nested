@@ -79,10 +79,23 @@ export class AppComponent {
     ]
   });
 
+
+  // 1. Define the action registry mapping IDs to method references
+  private readonly actionRegistry: Record<string, () => void> = {
+    'CONFIG_ENV': () => this.loadEnvironmentVariables(),
+    'PERM_ADMIN': () => this.configureAdminRoles(),
+    'PERM_TOKEN': () => this.generateCollaboratorTokens(),
+    'SYS_STATUS': () => this.checkSystemStatus(),
+  };
+
+
   handleMenuAction(actionId: string) {
     // 1. Update the terminal UI
     this.terminalOutput.set(`Executed event action identifier: [${actionId}]`);
 
+   let handlerApproach = 2 // 1 | 2
+
+   if(handlerApproach === 1)  {
     // 2. Switch statement acting as your router
     switch (actionId) {
       case 'CONFIG_ENV':
@@ -101,10 +114,26 @@ export class AppComponent {
         console.warn(`No action mapped for ID: ${actionId}`);
     }
   }
+else
+ if(handlerApproach === 2)  {
+        // Update terminal output UI
+    this.terminalOutput.set(`Executed event action identifier: [${actionId}]`);
+
+    // 2. Look up and execute the action in a single line
+    const action = this.actionRegistry[actionId];
+
+    if (action) {
+      action();
+    } else {
+      console.warn(`No registered method found for action identifier: [${actionId}]`);
+    }
+  }
+
+}
 
   // Action Methods
-  private loadEnvironmentVariables(actionId:any) { /* Logic */  alert('implement: ' + actionId )}
-  private configureAdminRoles(actionId:any) { /* Logic */  alert('implement: ' + actionId )}
-  private generateCollaboratorTokens(actionId:any) { /* Logic */  alert('implement: ' + actionId )}
-  private checkSystemStatus(actionId:any) { /* Logic */  alert('implement: ' + actionId )}
+  private loadEnvironmentVariables(actionId?:any) { /* Logic */  alert('implement: ' + actionId )}
+  private configureAdminRoles(actionId?:any) { /* Logic */  alert('implement: ' + actionId )}
+  private generateCollaboratorTokens(actionId?:any) { /* Logic */  alert('implement: ' + actionId )}
+  private checkSystemStatus(actionId?:any) { /* Logic */  alert('implement: ' + actionId )}
 }
