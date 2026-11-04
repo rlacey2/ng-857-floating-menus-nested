@@ -1,0 +1,42 @@
+{
+  "name": "angular-signals-menu",
+  "version": "1.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build"
+  },
+
+    "overrides": {
+    "@angular/core": "$@angular/core",
+    "@angular/animations": "$@angular/animations",
+    "rxjs": "$rxjs",
+    "tslib": "$tslib",
+    "@angular/compiler-cli": {
+      "typescript": "~6.0.3"
+    }
+  },
+  
+
+
+  "dependencies": {
+    "@angular/animations": "^21.2.26",
+    "@angular/common": "^22.2.4",
+    "@angular/compiler": "^22.2.4",
+    "@angular/core": "^22.2.4",
+    "@angular/forms": "^22.2.4",
+    "@angular/platform-browser": "^22.2.4",
+    "@angular/platform-browser-dynamic": "^21.2.26",
+    "@angular/router": "^22.2.4",
+    "bootstrap": "^5.3.8",
+    "rxjs": "~7.8.2",
+    "tslib": "^2.9.1",
+    "zone.js": "~0.16.3"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.2.6",
+    "@angular/cli": "^22.2.6",
+    "@angular/compiler-cli": "^22.2.4",
+    "typescript": "^6.0.3"
+  }
+}
