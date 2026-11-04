@@ -80,6 +80,31 @@ export class AppComponent {
   });
 
   handleMenuAction(actionId: string) {
+    // 1. Update the terminal UI
     this.terminalOutput.set(`Executed event action identifier: [${actionId}]`);
+
+    // 2. Switch statement acting as your router
+    switch (actionId) {
+      case 'CONFIG_ENV':
+        this.loadEnvironmentVariables();
+        break;
+      case 'PERM_ADMIN':
+        this.configureAdminRoles();
+        break;
+      case 'PERM_TOKEN':
+        this.generateCollaboratorTokens();
+        break;
+      case 'SYS_STATUS':
+        this.checkSystemStatus();
+        break;
+      default:
+        console.warn(`No action mapped for ID: ${actionId}`);
+    }
   }
+
+  // Action Methods
+  private loadEnvironmentVariables() { /* Logic */ }
+  private configureAdminRoles() { /* Logic */ }
+  private generateCollaboratorTokens() { /* Logic */ }
+  private checkSystemStatus() { /* Logic */ }
 }
