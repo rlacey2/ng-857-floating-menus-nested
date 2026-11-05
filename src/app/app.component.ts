@@ -2,6 +2,13 @@ import { Component, signal } from '@angular/core';
 import { NestedMenuComponent } from './nested-menu.component';
 import { MenuItem } from './menu.model';
 
+// Define a strict type for the context context your actions receive
+export interface ActionContext {
+  actionId?: string;
+  item?: MenuItem;   // use this if passing the full item object from the menu config
+  timestamp: number;
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -81,12 +88,23 @@ export class AppComponent {
 
 
   // 1. Define the action registry mapping IDs to method references
-  private readonly actionRegistry: Record<string, () => void> = {
-    'CONFIG_ENV': () => this.loadEnvironmentVariables(),
-    'PERM_ADMIN': () => this.configureAdminRoles(),
-    'PERM_TOKEN': () => this.generateCollaboratorTokens(),
-    'SYS_STATUS': () => this.checkSystemStatus(),
+  /*
+
+Why this approach is better
+
+• O(1) Efficiency: Instead of evaluating case statements sequentially, JavaScript instantly grabs the key from memory.
+• Open-Closed Principle: To add a new menu option in the future, you only need to add a single line to the actionRegistry object and write the method. You never have to touch your routing logic in handleMenuAction again.
+• Strict Type Safety: By using Record<string, () => void>, TypeScript guarantees that every mapped action strictly adheres to a signature that accepts zero arguments and returns nothing.
+
+  */
+  // 1. Define the registry to accept the typed context parameter
+  private readonly actionRegistry: Record<string, (context: ActionContext) => void> = {
+    'CONFIG_ENV': (ctx) => this.loadEnvironmentVariables(ctx),
+    'PERM_ADMIN': (ctx) => this.configureAdminRoles(ctx),
+    'PERM_TOKEN': (ctx) => this.generateCollaboratorTokens(ctx),
+    'SYS_STATUS': (ctx) => this.checkSystemStatus(ctx),
   };
+
 
 
   handleMenuAction(actionId: string) {
@@ -119,11 +137,19 @@ else
         // Update terminal output UI
     this.terminalOutput.set(`Executed event action identifier: [${actionId}]`);
 
+    // 2. Build the contextual payload dynamically at runtime
+    const context: ActionContext = {
+     // item: item,
+     actionId: actionId,
+      timestamp: Date.now()
+    };
+
+
     // 2. Look up and execute the action in a single line
     const action = this.actionRegistry[actionId];
 
     if (action) {
-      action();
+      action(context);
     } else {
       console.warn(`No registered method found for action identifier: [${actionId}]`);
     }
@@ -132,8 +158,13 @@ else
 }
 
   // Action Methods
-  private loadEnvironmentVariables(actionId?:any) { /* Logic */  alert('implement: ' + actionId )}
-  private configureAdminRoles(actionId?:any) { /* Logic */  alert('implement: ' + actionId )}
-  private generateCollaboratorTokens(actionId?:any) { /* Logic */  alert('implement: ' + actionId )}
-  private checkSystemStatus(actionId?:any) { /* Logic */  alert('implement: ' + actionId )}
+  private loadEnvironmentVariables(context?:any) { /* Logic */  alert('implement: ' + context.actionId )}
+  private configureAdminRoles(context?:any) { /* Logic */  alert('implement: ' + context.actionId)}
+  private generateCollaboratorTokens(context?:any) { /* Logic */  alert('implement: ' + context.actionId)}
+  private checkSystemStatus(context?:any) { /* Logic */  alert('implement: ' + context.actionId)}
+
+
+
+
+  
 }
