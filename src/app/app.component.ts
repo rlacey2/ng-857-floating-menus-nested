@@ -33,11 +33,13 @@ export interface ActionContext {
     </header>
 
     <main class="content-frame">
-      <h1>Hello World!</h1>
+      <h1>Nested Menu</h1>
       <p>Angular Signals-driven recursive layout engine initialized.</p>
       <div class="alert-box">
         Active System State: <strong>{{ terminalOutput() }}</strong>
       </div>
+
+      <p> handleMenuAction/dispatcher via a .ts data structure, check overlay on mobile device?
     </main>
   `,
   styles: [`
